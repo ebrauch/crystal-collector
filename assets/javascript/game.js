@@ -20,7 +20,18 @@ $("#randomNumber").text(numberToGuess);
 
 function winloss() {
     if (playerTotal === numberToGuess) {
-        
+        document.getElementById("win-overlay").style.display = "block";
+        reset();
+        wins++;
+        $("#wins").text("Wins:" + wins);
     }
+    else (playerTotal > numberToGuess){
+        document.getElementById("lose-overlay").style.display = "block";
+        reset();
+        losses++;
+        $("#losses").text("Losses:" + losses);
+    }
+
+
 }
 })
