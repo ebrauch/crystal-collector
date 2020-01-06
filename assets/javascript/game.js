@@ -8,65 +8,6 @@ $(function() {
   function reset() {
     //generate number to guess
     numberToGuess = Math.floor(Math.random() * 101 + 19);
-    //console.log(numberToGuess);
-
-    //generate new values for crystals
-    $(".crystal").each(function(){
-      let value = Math.floor(Math.random() * 11)+1;
-      console.log(value);
-      {
-     $(this).attr({
-"data-random":value
-      });
-      }
-
-    //reset player score
-    playerTotal = 0;
-    //update total score
-    $("#totalScore").text(playerTotal);
-    //update random number to guess
-    $("#randomNumber").text(numberToGuess);
-    
-  })
-
-  //game start
-  $(".crystal").click(function(){
-    
-
-  })
-
-  function winloss() {
-    if (playerTotal === numberToGuess) {
-      //display win overlay
-      document.getElementById("win-overlay").style.display = "block";
-      //update wins total
-      wins++;
-      //update wins display
-      $("#wins").text("Wins:" + wins);
-      //reset game
-      reset();
-    } else if (playerTotal > numberToGuess) {
-      document.getElementById("lose-overlay").style.display = "block";
-      losses++;
-      $("#losses").text("Losses:" + losses);
-      reset();
-    }
+    console.log(numberToGuess);
   }
-
-  function winOn() {
-    document.getElementById("win-overlay").style.display = "block";
-  }
-
-  function winOff() {
-    document.getElementById("win-overlay").style.display = "none";
-  }
-
-  function loseOn() {
-    document.getElementById("lose-overlay").style.display = "block";
-  }
-
-  function loseOff() {
-    document.getElementById("lose-overlay").style.display = "none";
-  }
-}
 })
