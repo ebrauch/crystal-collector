@@ -11,7 +11,7 @@ $( document ).ready(function() {
   
 function reset (){
     $(".crystal").each(function(){
-        numberToGuess = Math.floor(Math.random() * 11 + 1);
+        numberToGuess = Math.floor(Math.random() * 101 + 19);
         //console.log(value);
         {
             $(this).attr({
@@ -41,17 +41,24 @@ function gameStart(){
        $(this).attr({
            
        })
+       console.log(value);
+       playerTotal = playerTotal + value;
+       $("#totalScore").text(playerTotal);
+       winLoss();
+
+
     })
-    console.log(value);
+    
 }
 gameStart()
+
 
 
 function winLoss(){
     if (playerTotal === numberToGuess){
 
         //dsiplay win overlay
-        winOn();
+        //winOn();
         
         //update wins total
         wins++;
@@ -65,7 +72,7 @@ function winLoss(){
     } else if (playerTotal > numberToGuess) {
 
         //display lose overlay
-        loseOn();
+        //loseOn();
 
         //update losses total
         losses++;
