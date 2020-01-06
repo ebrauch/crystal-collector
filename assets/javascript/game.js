@@ -9,17 +9,31 @@ $(function() {
     //generate number to guess
     numberToGuess = Math.floor(Math.random() * 101 + 19);
     //console.log(numberToGuess);
+
     //generate new values for crystals
-    for (var i = 0; i < crystal.length; i++) {
-      crystal[i].attr("crystalValue", Math.floor(Math.random() * 11 + 1));
-    }
+    $(".crystal").each(function(){
+      let value = Math.floor(Math.random() * 11)+1;
+      console.log(value);
+      {
+     $(this).attr({
+"data-random":value
+      });
+      }
+
     //reset player score
     playerTotal = 0;
     //update total score
     $("#totalScore").text(playerTotal);
     //update random number to guess
     $("#randomNumber").text(numberToGuess);
-  }
+    
+  })
+
+  //game start
+  $(".crystal").click(function(){
+    
+
+  })
 
   function winloss() {
     if (playerTotal === numberToGuess) {
@@ -40,28 +54,19 @@ $(function() {
   }
 
   function winOn() {
-    document.getElementById("win-overlay").style.display  = "block";
+    document.getElementById("win-overlay").style.display = "block";
   }
 
   function winOff() {
     document.getElementById("win-overlay").style.display = "none";
-  } 
+  }
 
   function loseOn() {
-    document.getElementById("lose-overlay").style.display  = "block";
+    document.getElementById("lose-overlay").style.display = "block";
   }
 
   function loseOff() {
     document.getElementById("lose-overlay").style.display = "none";
   }
-
-
-
-  function gameStart() {
-    crystal = document.getElementsByClassName("btn");
-    for (var i = 0; i < crystal.length; i++) {
-      crystal[i].attr("crystalValue", Math.floor(Math.random() * 11 + 1));
-      crystal[i].on("click", event);
-    }
-  }
-});
+}
+})
