@@ -1,141 +1,69 @@
 $( document ).ready(function() {
     //console.log( "ready!" );
 
-//global variables
-  let wins = 0;
-  let losses = 0;
-  let numberToGuess;
-  let playerTotal = 0;
-  let value;
+    //global variables
+    const reset = init;
+    let wins = 0;
+    let losses = 0;
+    let numberToGuess;
+    let playerTotal;
 
-  
-function reset (){
-    $(".crystal").each(function(){
-        numberToGuess = Math.floor(Math.random() * 101 + 19);
-        //console.log(value);
-        {
-            $(this).attr({
-                "data-random":numberToGuess
-            });
-        }
-        //reset player score
+    init();
+
+    function generateNumberToGuess() {
+        return Math.floor(Math.random() * 101 + 19);
+    }
+
+    function generateCrystalValue() {
+        return Math.floor(Math.random() * 11 + 1);
+    }
+
+    
+    function init() {
+        // initialize playerTotal and numberToGuess
         playerTotal = 0;
-
-        //update total score
-        $("#totalScore").text(playerTotal);
-
-        //update random number to guess
-        $("#randomNumber").text(numberToGuess);
-    })
-    
-
-
-}
-reset()
-
-
-//game start
-function gameStart(){
-    $(".crystal").click(function(){
-       value = Math.floor(Math.random() * 11 + 1);
-       $(this).attr({
-           
-       })
-       console.log(value);
-       playerTotal = playerTotal + value;
-       $("#totalScore").text(playerTotal);
-       winLoss();
-
-
-    })
-    
-}
-gameStart()
-
-
-
-function winLoss(){
-    if (playerTotal === numberToGuess){
-
-        //dsiplay win overlay
-        //winOn();
+        numberToGuess = generateNumberToGuess();
         
-        //update wins total
+        // update DOM
+        $("#totalScore").text(playerTotal);
+        $("#randomNumber").text(numberToGuess);
+
+        $(".crystal").each((_index, crystal) => {
+            // declare crystal's value outside click handler, so it's the same value each time
+            const value = generateCrystalValue();
+        
+            // remove any existing click handlers
+            $(crystal).off("click");
+
+            // add new click handler
+            $(crystal).on("click", (event) => {
+                event.preventDefault(); // this prevents the browser from "jumping" to the top of the page when a `crystal` is clicked
+                updateScore(value);
+            });
+        });
+    }
+
+    function updateScore(crystalValue) {
+        playerTotal += crystalValue;
+
+        if (playerTotal === numberToGuess) {
+            handleWin();
+        } else if (playerTotal > numberToGuess) {
+            handleLoss();
+        }
+
+        $("#totalScore").text(playerTotal);
+    }
+
+    function handleWin() {
         wins++;
-
-        //update wins display
-        $("#wins").text("Wins:" + wins);
-
-        //reset game
+        $("#wins").text(`Wins: ${wins}`);
         reset();
+    }
 
-    } else if (playerTotal > numberToGuess) {
-
-        //display lose overlay
-        //loseOn();
-
-        //update losses total
+    function handleLoss() {
         losses++;
-
-        //update losses display
-        $("#losses").text("Losses:" + losses);
-
-        //reset game
+        $("#losses").text(`Losses: ${losses}`);
         reset();
     }
-
-    }
-    winLoss()
-
-    function winOn(){
-        $("#win-overlay").style.display = "block";
-    }
-
-    function winOff(){
-        $("#win-overlay").style.display = "none";
-    }
-
-    function loseOn(){
-        $("#lose-overlay").style.display = "block";
-    }
-
-    function loseOff(){
-        $("#lose-overlay").style.display = "none";
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//don't lose these!    
 });
